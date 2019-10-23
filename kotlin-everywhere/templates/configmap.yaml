@@ -1,0 +1,14 @@
+{{- if .Values.configmap }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    labels:
+        app: {{ template "kotlin-everywhere.name" . }}
+        chart: {{ template "kotlin-everywhere.chart" . }}
+        heritage: {{ .Release.Service }}
+        release: {{ .Release.Name }}
+    name: {{ template "kotlin-everywhere.fullname" . }}
+data:
+    application.properties: |-
+            {{ toYaml .Values.configmap | indent 4 }}
+        {{- end }}
